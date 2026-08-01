@@ -1,8 +1,14 @@
 from flask import Flask, render_template, send_from_directory
+from dotenv import load_dotenv
+from chatbot_routes import chatbot_bp
+
 import os
 
-app = Flask(__name__)
+load_dotenv()
 
+app = Flask(__name__)
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev-secret-change-me")
+app.register_blueprint(chatbot_bp)
 
 @app.route('/')
 def index():
